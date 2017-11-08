@@ -2,7 +2,15 @@ from flask import Flask, send_file, jsonify, request
 import requests
 from flask_pymongo import PyMongo
 import datetime
+
+from rq import Queue
+from rq.job import Job
+from worker import conn
+
 app = Flask(__name__)
+
+
+q = Queue(connection=conn)
 
 
 
@@ -14,9 +22,6 @@ mongo = PyMongo(app, config_prefix='MONGO')
 
 
 
-@app.route('/')
-def hello_world():
-    return send_file("templates/index.html")
 
 
 @app.route('/addUser', methods=[ 'GET', 'POST'])
@@ -33,6 +38,19 @@ def get_all_users():
         users.append(user)
     return jsonify(users)
 
+def test_redis():
+    print("rediswork")
+
+
+@app.route('/')
+def hello_world():
+    # job = q.enqueue_call(
+    #     func=test_redis,args=(), result_ttl=5000
+    # )
+    # print(job.get_id())
+
+    return send_file("templates/index.html")
+
 @app.route('/upload', methods=[ 'GET'])
 def upload_file():
     params ={
@@ -47,7 +65,7 @@ def upload_file():
     for w in raws_workers:
         workers.append({
             "name": w[0],
-            "a_speed": w[1]['a'],
+            "a_speed": w[1],
             'time_connected': w[2],
             'enabled_xnsub': w[3],
             'difficult': w[4],
