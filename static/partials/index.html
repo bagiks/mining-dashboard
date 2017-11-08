@@ -9,80 +9,83 @@
         </div>
         <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner"/>
         <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-2">
-                    <button class="btn btn-upload" ng-click="loadData()">
-                  Reload</button>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button class="btn btn-upload" ng-click="loadData()">
+                      Reload</button>
+                    </div>
                 </div>
 
             </div>
-
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            index
-                        </th>
-                        <th>
-                            name
-                        </th>
-                        <th>
-                            speed
-                        </th>
-                        <th>
-                            time connected
-                        </th>
-                        <th>
-                            enabled xnsub
-                        </th>
-                        <th>
-                            difficult
-                        </th>
-                        <th>
-                            location
-                        </th>
-                        <th>
-                            unknown
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="worker in workers track by $index" class="active">
-                        <td>
-                            {{ $index }}
-                        </td>
-                        <td>
-                            {{ worker['name'] }}
-                        </td>
-                        <td>
-                            {{ worker['a_speed'] }}
-                        </td>
-                        <td>
-                            {{ worker['time_connected'] }}
-                        </td>
-                        <td>
-                            {{ worker['enabled_xnsub'] }}
-                        </td>
-                        <td>
-                            {{ worker['difficult'] }}
-                        </td>
-                        <td>
-                            {{ worker['location'] }}
-                        </td>
-                        <td>
-                            {{ worker['unknown'] }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <div class="row">
+            <div class="list-address col-md-3">
+                <h3>haha</h3>
+            </div>
+            <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                index
+                            </th>
+                            <th>
+                                name
+                            </th>
+                            <th>
+                                speed
+                            </th>
+                            <th>
+                                time connected
+                            </th>
+                            <th>
+                                enabled xnsub
+                            </th>
+                            <th>
+                                difficult
+                            </th>
+                            <th>
+                                location
+                            </th>
+                            <th>
+                                unknown
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="worker in workers track by $index" class="active">
+                            <td>
+                                {{ $index }}
+                            </td>
+                            <td>
+                                {{ worker['name'] }}
+                            </td>
+                            <td>
+                                {{ worker['a_speed'] }}
+                            </td>
+                            <td>
+                                {{ worker['time_connected'] }}
+                            </td>
+                            <td>
+                                {{ worker['enabled_xnsub'] }}
+                            </td>
+                            <td>
+                                {{ worker['difficult'] }}
+                            </td>
+                            <td>
+                                {{ worker['location'] }}
+                            </td>
+                            <td>
+                                {{ worker['unknown'] }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
     </div>
 </div>
