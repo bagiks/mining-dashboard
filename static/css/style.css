@@ -1,0 +1,91 @@
+body {
+    padding-top: 30px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+footer {
+    margin: 20px 0;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+.input-image{
+    margin: 10px;
+    padding: 2px;
+    border: 1px solid #eeeeee;
+    width: 500px;
+    height: auto;
+}
+
+.material-item{
+    overflow: hidden;
+    margin: 5px;
+    padding: 2px;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+}
+
+.material-item.selected{
+    /*border: 1px solid blue;*/
+    box-shadow: 0px 0px 2px 2px #00b3ee;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+#search {
+    float: right;
+    margin-top: 9px;
+    width: 250px;
+}
+
+.search {
+    padding: 5px 0px;
+    width: 400px;
+    height: 30px;
+    position: relative;
+    left: 10px;
+    float: left;
+    line-height: 22px;
+    margin: 10px;
+}
+
+.search input {
+    position: absolute;
+    /*width: 200px;*/
+    float: Left;
+    margin-left: 0px;
+    /*-webkit-transition: all 0.7s ease-in-out;*/
+    /*-moz-transition: all 0.7s ease-in-out;*/
+    /*-o-transition: all 0.7s ease-in-out;*/
+    /*transition: all 0.7s ease-in-out;*/
+    height: 30px;
+    line-height: 18px;
+    padding: 0 2px 0 2px;
+    border-radius:20px;
+}
+
+.search:hover input, .search input:focus {
+    width: 400px;
+    margin-left: 0px;
+}
+
+.btn-search {
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    border-radius:20px;
+}
+
+.result{
+    height: 700px;
+}
+
+
+.p {
+    font-size: 14px;
+}
