@@ -18,6 +18,21 @@ mongo = PyMongo(app, config_prefix='MONGO')
 def hello_world():
     return send_file("templates/index.html")
 
+
+@app.route('/addUser', methods=[ 'GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        mongo.db.user.insert({"user": request.args.get('user')})
+        return jsonify({'user': request.args.get('user')})
+
+@app.route('/getUsers', methods=[ 'GET'])
+def get_all_users():
+    users = []
+    for user in mongo.db.user.find({}):
+        user.pop('_id')
+        users.append(user)
+    return jsonify(users)
+
 @app.route('/upload', methods=[ 'GET'])
 def upload_file():
     params ={
