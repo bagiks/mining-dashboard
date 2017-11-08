@@ -16,7 +16,8 @@ angular
                 enabled_xnsub : 0,
                 difficult: 0,
                 location: 1,
-                unknown : 1
+                unknown : 1,
+                updated_at: Date.now()
             };
         }
 
@@ -28,7 +29,8 @@ angular
                 enabled_xnsub : object.enabled_xnsub,
                 difficult: object.difficult,
                 location: object.location,
-                unknown : object.unknown
+                unknown : object.unknown,
+                updated_at: object.updated_at | Date.now()
             }
         }
 
