@@ -85,7 +85,7 @@
                                 {{ worker['unknown'] }}
                             </td>
                             <td>
-                                {{ worker['updated_at'] }}
+                                {{ worker['updated_at'] | date:'yyyy-MM-dd HH:mm:ss Z'}}
                             </td>
                         </tr>
                     </tbody>

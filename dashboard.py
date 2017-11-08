@@ -20,7 +20,7 @@ def hello_world():
 
 @app.route('/upload', methods=[ 'GET'])
 def upload_file():
-    params =  {
+    params ={
                 "method": 'stats.provider.workers',
                 "addr": '1DHeNm1zZVpWj4DkYeQNaPCaEKqe1qPCK6',
                 "algo": 1
@@ -38,7 +38,7 @@ def upload_file():
             'difficult': w[4],
             'location': w[5],
             'unknown': w[6],
-            'updated_at': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            'updated_at': int(datetime.datetime.now().timestamp() * 1000)#.strftime('%Y-%m-%d %H:%M:%S')
         })
         mongo.db.worker.find_one_and_replace({"name": w[0]}, workers[-1], return_document=True)
         # mongo.db.worker.insert(workers[-1])
