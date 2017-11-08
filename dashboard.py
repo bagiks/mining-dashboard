@@ -32,11 +32,17 @@ def add_user():
 
 @app.route('/getUsers', methods=[ 'GET'])
 def get_all_users():
+    users = get_users_db()
+    return jsonify(users)
+
+
+def get_users_db():
     users = []
     for user in mongo.db.user.find({}):
         user.pop('_id')
         users.append(user)
-    return jsonify(users)
+    return users
+
 
 def test_redis():
     print("rediswork")
@@ -53,11 +59,21 @@ def hello_world():
 
 @app.route('/upload', methods=[ 'GET'])
 def upload_file():
-    params ={
-                "method": 'stats.provider.workers',
-                "addr": '1DHeNm1zZVpWj4DkYeQNaPCaEKqe1qPCK6',
-                "algo": 1
-            }
+    reload_one_user('1DHeNm1zZVpWj4DkYeQNaPCaEKqe1qPCK6')
+
+    mongo_workers = []
+    for w in mongo.db.worker.find():
+        w.pop('_id')
+        mongo_workers.append(w)
+    return jsonify(sorted(mongo_workers, key=lambda x: x['name']))
+
+
+def reload_one_user(address):
+    params = {
+        "method": 'stats.provider.workers',
+        "addr": address,
+        "algo": 1
+    }
     url = "https://api.nicehash.com/api"
     response = requests.get(url, params)
     raws_workers = response.json()['result']['workers']
@@ -71,16 +87,17 @@ def upload_file():
             'difficult': w[4],
             'location': w[5],
             'unknown': w[6],
-            'updated_at': int(datetime.datetime.now().timestamp() * 1000)#.strftime('%Y-%m-%d %H:%M:%S')
+            'updated_at': int(datetime.datetime.now().timestamp() * 1000)  # .strftime('%Y-%m-%d %H:%M:%S')
         })
         mongo.db.worker.find_one_and_replace({"name": w[0]}, workers[-1], return_document=True)
         # mongo.db.worker.insert(workers[-1])
 
-    mongo_workers = []
-    for w in mongo.db.worker.find():
-        w.pop('_id')
-        mongo_workers.append(w)
-    return jsonify(sorted(mongo_workers, key=lambda x: x['name']))
+
+def reload_data():
+    users = get_users_db()
+    for u in users:
+        reload_one_user(u['address'])
+
 
 if __name__ == '__main__':
     app.run()
