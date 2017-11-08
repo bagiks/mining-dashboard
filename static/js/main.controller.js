@@ -29,77 +29,20 @@ function MainCtr($scope, Item, $timeout, $http){
             console.log(response)
         });
     }
-    //
-    // $scope.items = []
-    //
-    // $scope.checkedIndex = 0
-    // $scope.total = 0.0
-    // $scope.laborCost = 0.0
-    // $scope.materialCost = 0.0
-    // $scope.spinneractive = false
-    //
-    // $scope.picFile = "http://placehold.it/300x300"
-    //
-    // $scope.selectItem = function (index) {
-    //     $scope.checkedIndex = index
-    //     calculateTotal()
-    // }
-    //
-    // function calculateTotal() {
-    //     $scope.materialCost = parseFloat($scope.items[$scope.checkedIndex].price.replace(",", ".")) * $scope.quantity
-    //     $scope.laborCost = 30 + $scope.quantity * 5
-    //     $scope.total =  parseFloat($scope.materialCost + $scope.laborCost).toFixed(2)
-    // }
-    //
-    // $scope.checkIndex = function (index) {
-    //     return $scope.checkedIndex == index
-    // }
-    //
-    // $scope.itemClass = function (index) {
-    //     if ($scope.checkedIndex == index)
-    //         return "material-class"
-    //     else ""
-    // }
-    //
-    // $scope.quantity = 0
-    //
-    // $scope.incQuantity = function () {
-    //     $scope.quantity = $scope.quantity + 1
-    //     calculateTotal()
-    //
-    // }
-    //
-    // $scope.decQuantity = function () {
-    //     $scope.quantity = $scope.quantity  - 1
-    //     calculateTotal()
-    // }
-    //
-    //
-    // $scope.uploadPic = function (file) {
-    //     if(!$scope.spinneractive){
-    //         usSpinnerService.spin("spinner");
-    //     }
-    //     $scope.file = file
-    //     file.upload = Upload.upload({
-    //         url: 'http://208.101.40.246:8888/upload',  //http://demo7177.cloudapp.net/upload
-    //         data: {file: file}
-    //     })
-    //     file.upload.then(function (response) {
-    //         $timeout(function () {
-    //             $scope.item = response.data
-    //             console.log($scope.item)
-    //             if(!$scope.spinneractive){
-    //                 usSpinnerService.stop("spinner");
-    //             }
-    //
-    //             // $scope.items = $scope.items.sort(function (a, b) {
-    //             //     return a.score > b.score
-    //             // }).slice(0,5)
-    //         })
-    //     })
-    // }
-    // // spinner
-    
 
+    $scope.addUser = function () {
+        
+    }
+
+
+    $scope.intervalFunction = function(){
+        $timeout(function() {
+          $scope.loadData();
+          $scope.intervalFunction();
+        }, 5000)
+      };
+
+      // Kick off the interval
+      $scope.intervalFunction();
 
 }
