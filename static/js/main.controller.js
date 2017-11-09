@@ -2,11 +2,10 @@
 
 angular
     .module('myApp')
-    .controller('MainCtr', ['$scope','Item', '$timeout', '$http', '$location', '$window', MainCtr])
+    .controller('MainCtr', ['$scope','Item', '$timeout', '$http', '$location', '$window','$routeParams', MainCtr])
 
 
-function MainCtr($scope, Item, $timeout, $http, $location, $window){
-    
+function MainCtr($scope, Item, $timeout, $http, $location, $window, $routeParams){
     
     $scope.workers = []
     $scope.user = ''
@@ -73,9 +72,28 @@ function MainCtr($scope, Item, $timeout, $http, $location, $window){
         console.log($scope.users)
     }
 
+    $scope.init = function () {
+        console.log($routeParams)
+
+        $http({
+            method: 'GET',
+            url: 'http://localhost:5000/getWorkersOfUser',
+            params: {
+                address: $routeParams.address
+            }
+        }).then(function successCallback( response) {
+            $scope.workers = response.data
+        })
+
+        console.log($scope.users)
+
+    }
+
+    $scope.init();
+
     $scope.intervalFunction = function(){
         $timeout(function() {
-          $scope.loadData();
+          $scope.init();
           $scope.getUsers();
           $scope.intervalFunction();
         }, 5000)
