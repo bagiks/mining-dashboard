@@ -12,10 +12,9 @@ import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.mongodb import MongoDBJobStore
 
-jobstores = {
-    'default': MongoDBJobStore(database='dashboard', collection='user', host='localhost', port=27017)
-
-}
+# jobstores = {
+#     'default': MongoDBJobStore(database='dashboard', collection='user', host='localhost', port=27017)
+# }
 
 
 app = Flask(__name__)
@@ -131,7 +130,7 @@ def reload_data():
             reload_one_user(u['address'])
             print(u['address'])
 
-cron = BackgroundScheduler(daemon=True, jobstores=jobstores)
+cron = BackgroundScheduler(daemon=True)
 cron.add_job(reload_data, 'interval', seconds=1)
 # Explicitly kick off the background thread
 cron.start()
