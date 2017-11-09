@@ -95,8 +95,9 @@
                             <td>
                                 {{ worker['unknown'] }}
                             </td>
-                            <td ng-style="{color: worker['updated_at'] < Date.now() ? 'red': 'blue'}">
+                            <td ng-style="{color: die(worker['updated_at']) ? 'red': 'blue'}">
                                 {{ worker['updated_at'] | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                                - {{ worker['updated_at']}} - {{now}}
                             </td>
                         </tr>
                     </tbody>

@@ -13,6 +13,7 @@ function MainCtr($scope, Item, $timeout, $http, $location, $window, $routeParams
     $scope.address = ''
     $scope.temp_address = ''
     $scope.users = []
+    $scope.now = Date.now()
 
     $scope.goToAddress = function(address, refresh) {
     if(refresh || $scope.$$phase) {
@@ -22,7 +23,9 @@ function MainCtr($scope, Item, $timeout, $http, $location, $window, $routeParams
         $scope.$apply();
     }
 }
-
+    $scope.die = function (last) {
+        return last + 8*1000 < Date.now()
+    }
     $scope.loadData = function () {
         $http({
             method: 'GET',
@@ -85,7 +88,7 @@ function MainCtr($scope, Item, $timeout, $http, $location, $window, $routeParams
             $scope.workers = response.data
         })
 
-        console.log($scope.users)
+        console.log($scope.workers[1])
 
     }
 

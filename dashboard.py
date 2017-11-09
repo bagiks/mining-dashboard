@@ -72,7 +72,7 @@ def get_workers_of_user():
     address = ''
     if request.args.get('address') is not None:
         user = mongo.db.user.find_one({"address": request.args.get('address')})
-        address = user.address
+        address = user['address']
     else:
         users = get_users_db()
         for u in users:
@@ -80,7 +80,7 @@ def get_workers_of_user():
             break
 
     mongo_workers = []
-    for w in mongo.db.worker.find({"addr": address}):
+    for w in mongo.db.worker.find({"address": address}):
         w.pop('_id')
         mongo_workers.append(w)
     return jsonify(sorted(mongo_workers, key=lambda x: x['name']))
@@ -118,8 +118,11 @@ def reload_one_user(address):
             'unknown': w[6],
             'updated_at': int(datetime.datetime.now().timestamp() * 1000)  # .strftime('%Y-%m-%d %H:%M:%S')
         })
-        mongo.db.worker.find_one_and_replace({"name": w[0]}, workers[-1], return_document=True)
+        x= mongo.db.worker.find_one_and_replace({"name": w[0]}, workers[-1], return_document=True)
         # mongo.db.worker.insert(workers[-1])
+        if x is None:
+            mongo.db.worker.insert(workers[-1])
+    # print(workers)
 
 
 def reload_data():
@@ -130,7 +133,7 @@ def reload_data():
             print(u['address'])
 
 cron = BackgroundScheduler(daemon=True)
-cron.add_job(reload_data, 'interval', seconds=20)
+cron.add_job(reload_data, 'interval', seconds=5)
 # Explicitly kick off the background thread
 cron.start()
 
