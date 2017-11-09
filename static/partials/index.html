@@ -95,7 +95,7 @@
                             <td>
                                 {{ worker['unknown'] }}
                             </td>
-                            <td>
+                            <td ng-style="{color: worker['updated_at'] < Date.now() ? 'red': 'blue'}">
                                 {{ worker['updated_at'] | date:'yyyy-MM-dd HH:mm:ss Z'}}
                             </td>
                         </tr>
