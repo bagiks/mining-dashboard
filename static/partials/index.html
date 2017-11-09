@@ -12,8 +12,7 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-info"
-                                data-toggle="modal" data-target="#myModal">Add new User</button>
+
                     </div>
                 </div>
 
@@ -23,43 +22,19 @@
 
         <!-- Trigger the modal with a button -->
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add new User</h4>
-      </div>
-
-        <form name="myForm">
-            <label>
-               User name:
-               <input type="text" name="user" ng-model="tem_user" required>
-            </label>
-            <div role="alert">
-              <span class="error" ng-show="myForm.user.$error.required">
-               Required!</span>
-            </div>
-        </form>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="addUser(tem_user)">Add</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
         <div class="row">
-            <div ng-repeat="u in users" class="list-address col-md-3">
-                {{ u }}
+            <div class="col-md-3">
+                <div class="row">
+                    <button type="button" class="btn btn-info"
+                                data-toggle="modal" data-target="#myModal">Add new User</button>
+                </div>
+                <div class="row">
+                    <div  ng-repeat="u in users" class="list-address">
+                        <div class="row" ng-click="goToAddress(u.address)">
+                            {{ u.username }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-9">
                 <table class="table">
@@ -129,5 +104,42 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add new User</h4>
+              </div>
+
+                <form name="myForm">
+                    <label>
+                       User name:
+                       <input type="text" name="user" ng-model="temp_user" required>
+                    </label>
+                    <label>
+                       Address:
+                       <input type="text" name="address" ng-model="temp_address" required>
+                    </label>
+                    <div role="alert">
+                      <span class="error" ng-show="myForm.user.$error.required">
+                       User Required!</span>
+                        <span ng-show="myForm.address.$error.required">Address Required!</span>
+                    </div>
+                </form>
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="addUser(temp_user, temp_address)">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
     </div>
 </div>

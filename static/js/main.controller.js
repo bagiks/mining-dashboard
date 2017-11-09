@@ -2,16 +2,27 @@
 
 angular
     .module('myApp')
-    .controller('MainCtr', ['$scope','Item', '$timeout', '$http', MainCtr])
+    .controller('MainCtr', ['$scope','Item', '$timeout', '$http', '$location', '$window', MainCtr])
 
 
-function MainCtr($scope, Item, $timeout, $http){
+function MainCtr($scope, Item, $timeout, $http, $location, $window){
     
     
     $scope.workers = []
     $scope.user = ''
     $scope.temp_user = ''
+    $scope.address = ''
+    $scope.temp_address = ''
     $scope.users = []
+
+    $scope.goToAddress = function(address, refresh) {
+    if(refresh || $scope.$$phase) {
+        $window.location.href = "?address="+address;
+    } else {
+        $location.path(url);
+        $scope.$apply();
+    }
+}
 
     $scope.loadData = function () {
         $http({
@@ -33,18 +44,20 @@ function MainCtr($scope, Item, $timeout, $http){
         });
     }
 
-    $scope.addUser = function (username) {
+    $scope.addUser = function (username, address) {
 
         $scope.temp_user = ''
+        $scope.temp_address = ''
         console.log(username)
         $http({
             method: 'POST',
             url: 'http://localhost:5000/addUser',
             params: {
-                "user": username
+                "username": username,
+                "address": address
             }
         }).then(function successCallback( response) {
-            $scope.user = response.data['user']
+            $scope.user = response.data
         })
     }
 
@@ -54,9 +67,7 @@ function MainCtr($scope, Item, $timeout, $http){
             method: 'GET',
             url: 'http://localhost:5000/getUsers'
         }).then(function successCallback( response) {
-            $scope.users = response.data.map(function (user) {
-                return user['user']
-            })
+            $scope.users = response.data
         })
 
         console.log($scope.users)

@@ -3,8 +3,8 @@
 var myApp=angular.module('myApp', ['ngRoute']);
 
 myApp
-    .config(['$routeProvider',
-     function($routeProvider) {
+    .config(['$routeProvider', '$locationProvider',
+     function($routeProvider, $locationProvider) {
          $routeProvider.
              when('/', {
                  templateUrl: '/static/partials/index.html',
@@ -14,7 +14,13 @@ myApp
              otherwise({
                  redirectTo: '/'
              });
+         // $locationProvider.html5Mode(true);
+         $locationProvider.html5Mode({
+              enabled: true,
+              requireBase: false
+            });
     }])
+
     .run(function($rootScope, $templateCache) {
        $rootScope.$on('$viewContentLoaded', function() {
           $templateCache.removeAll();

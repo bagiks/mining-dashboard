@@ -27,8 +27,11 @@ mongo = PyMongo(app, config_prefix='MONGO')
 @app.route('/addUser', methods=[ 'GET', 'POST'])
 def add_user():
     if request.method == 'POST':
-        mongo.db.user.insert({"user": request.args.get('user')})
-        return jsonify({'user': request.args.get('user')})
+        user = {"username": request.args.get('username'),
+                "address": request.args.get('address')}
+        mongo.db.user.insert(user)
+        user.pop('_id')
+        return jsonify(user)
 
 @app.route('/getUsers', methods=[ 'GET'])
 def get_all_users():
